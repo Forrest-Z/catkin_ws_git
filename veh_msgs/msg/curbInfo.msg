@@ -1,0 +1,2 @@
+#curbInof.msg
+curbPoint[] curbPoints

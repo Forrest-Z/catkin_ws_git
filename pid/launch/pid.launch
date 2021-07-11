@@ -1,0 +1,10 @@
+<launch>
+  <node pkg='pid' type='lon_control'         name='lon_control' output='screen'/>
+  <node pkg='rqt_plot' type='rqt_plot'         name='rqt_plot'/>
+
+
+  <param name="k_p" value="500" />
+  <param name="k_i" value="0" />
+  <param name="k_d" value="0" />
+
+</launch>

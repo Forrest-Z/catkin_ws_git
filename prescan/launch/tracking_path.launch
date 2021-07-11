@@ -1,0 +1,3 @@
+<launch>
+  <node pkg='tracking' type='preview' name='preview' output='screen'/>
+</launch>

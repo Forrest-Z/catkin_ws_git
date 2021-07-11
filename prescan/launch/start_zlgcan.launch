@@ -1,0 +1,3 @@
+<launch>
+  <node pkg='zlgcan' type='zlgcan_node' name='zlgcan_node' output='screen'/>
+</launch>

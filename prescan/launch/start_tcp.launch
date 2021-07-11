@@ -1,0 +1,4 @@
+<launch>
+  <node pkg='prescan' type='sensorframe'     name='sensorframe' output='screen'/>
+  <node pkg='rviz'    type='rviz'            name='rviz'/>
+</launch>

@@ -1,0 +1,25 @@
+<launch>
+  <node pkg='localization' type='prescan_loc' name='prescan_loc'/>
+
+  <node pkg='perception' type='radar' name='radar'/>
+
+  <rosparam file="$(find gui_node)/config/params.yaml" command="load"/>
+  <node pkg='gui_node' type='global_planner_gui.py' name='global_planner_gui' output='screen'/>
+
+  <node pkg='control_manual' type='control_manual_cmd'         name='control_manual_cmd'/>
+  <node pkg='rqt_reconfigure'    type='rqt_reconfigure'            name='rqt_reconfigure'/>
+  <node pkg='pid' type='lon_control'         name='lon_control'/>
+  <node pkg='rqt_plot'    type='rqt_plot'            name='rqt_plot'/>
+
+  <node pkg='prescan' type='sensorframe'     name='sensorframe'/>
+  <node pkg='rviz'    type='rviz'            name='rviz'/>
+
+  <node pkg='zlgcan' type='zlgcan_node' name='zlgcan_node'/>
+
+  <node pkg='refline' type='reference_line' name='reference_line'/>
+
+  <node pkg='lattice_planner' type='lattice_planner' name='lattice_planner'/>
+
+  <node pkg='tracking' type='preview' name='preview'/>
+
+</launch>

@@ -1,0 +1,68 @@
+一.各功能包的作用：
+
+1.zlgcan:传输控制信息，即方向盘转角信息，制动压力信息，油门信息;
+
+2.control_manual:车辆手动与自动控制切换；
+
+3.pid：车辆速度pid控制；
+
+4.lattice_planner:轨迹规划算法，获取得到最优规划轨迹
+
+5.tracking:轨迹跟踪控制算法，获取的到车辆的控制信息，即目标速度和目标前轮转角
+
+6.refline:订阅全局路径信息，对其进行平滑化，得到frenet坐标的参考轨迹；(注：参考线的s零点为车辆当前点，目的在于
+减少每次遍历找点的数量)；
+注意：获取光滑参考线时，为将车辆当前点所在位置映射到frenet坐标上，需要进行地图匹配，找出距离车辆最近的点，找点
+时：先找到距离最近点，然后再根据车辆航向来确定真正的最近点；
+
+改：计算出来了参考线的曲率和曲率变化率120～134,注释了113～114；
+
+7.gui_node:全局路径规划，获取得到全局规划路径点信息；
+
+8.localization:车辆定位，获取得到车辆的定位信息GPS和IMU；
+
+9.perception:整合车辆周围的障碍物信息，并将其以消息的形式发布出来(代码中只整合了前方的障碍物)；
+
+10.prescan：获取得到prescan端通过TCP传输过来的数据；
+
+
+
+
+
+
+
+二.如何运行:
+准备工作：用网线将两个电脑连接起来，需要在笔记本上将台式机的IP地址放入prescan包-src-sensorframe.cpp里面将server_IP改为新主机的IP地址
+
+step1: run **simulink** on windows（将算法控制车的constant5和constant6改为0,才能使车辆处于初始位置）
+
+step2: run **tcp server** on windows (do it once), the code path is "repo_name/UDP/TCPServer/TCPServer.sln"
+
+step3: update the code of motion_plan by typing *"cd catkin_ws"*->*"catkin_make"*
+
+step4: get zlgcan's permission by typing *"lsusb"*->*"sudo chmod 666 /dev/bus/usb/001/005"*(note:the last number 005 is the zlgcan's id whorse name is Philips (or NXP))
+
+step5: run the ros by tpying the code *"roscore"*
+
+step6: run the planner by tpying the code *"roslaunch prescan start.launch"*
+
+step7:运行后面机房的两个主机 （1）运行Labview--打开项目“s_s_jf_rollover.lvproj*”--运行NI_PXIe8133--20190821.vi （2）运行trucksim8.1--点击“send” 
+
+step8：在prescan中添加手柄控制的小车：（1）prescan中的操作：点小车-object configuration-dynamic-3Dsample-driver model：game controller：custom （2）matlab中的操作：将experiment_1027中的“HID_control”复制出来，粘贴到想手动控制的车上，然后在“regenerate”，再将regenerate生成的“HID_control”以及其连线删除，点击运行即可
+
+step9：手柄控制的按键对应：
+  油门：左上键，按：50%油门，不按：0%油门
+  档位：右键Y：D档  右键A：R档  不按：N档（空档）
+  方向盘：左摇杆向右：右转  左摇杆向左：左转 （最大转角在Simulink中的对应车辆里的steer_function里面设置）
+  刹车：右遥杆向下：刹车（幅度越大制动力越大）
+
+
+
+**NOTE:** 
+(1)if you want to restart the experiment, repeat step3 to step7 is enough.
+
+(2)if you just want to stop the car to test some parameters,you should transmit the value of stop_cmd on the manaul_control screen to ture,after that,if you want to start the car,just transmit the value of stop_cmd on the manaul_control screen to false.
+
+(3)python file need permission
+
+(4)if the velocity from the prescan(the value is: v_o) is always 0,the reason is may be that the trucksim is stoped,you just restart it enough.

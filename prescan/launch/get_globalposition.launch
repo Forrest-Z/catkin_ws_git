@@ -1,0 +1,3 @@
+<launch>
+  <node pkg='localization' type='prescan_loc' name='prescan_loc' output='screen'/>
+</launch>

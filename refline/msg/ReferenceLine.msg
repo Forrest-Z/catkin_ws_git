@@ -1,0 +1,2 @@
+std_msgs/Header header
+ReferencePoint[] ReferencePoints  ##ReferencePoints是包含ReferencePoint类型的元素的数组，由一系列参考点组成的参考线

@@ -1,0 +1,3 @@
+<launch>
+  <node pkg='lattice_planner' type='lattice_planner' name='lattice_planner' output='screen'/>
+</launch>

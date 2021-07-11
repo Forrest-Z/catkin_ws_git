@@ -1,0 +1,5 @@
+global_planner_gui:
+  smooth_alpha_step: 5
+  heading_error_th: 30
+  point2line_dist_th: 100
+  mouse_pick_tol: 100

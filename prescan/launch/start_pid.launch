@@ -1,0 +1,7 @@
+<launch>
+  <node pkg='control_manual' type='control_manual_cmd'         name='control_manual_cmd' output='screen'/>
+  <node pkg='rqt_reconfigure'    type='rqt_reconfigure'            name='rqt_reconfigure'/>
+
+  <node pkg='pid' type='lon_control'         name='lon_control' output='screen'/>
+  <node pkg='rqt_plot'    type='rqt_plot'            name='rqt_plot'/>
+</launch>

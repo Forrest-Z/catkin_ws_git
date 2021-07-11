@@ -1,0 +1,6 @@
+<launch>
+
+  <rosparam file="$(find gui_node)/config/params.yaml" command="load"/>
+  <node pkg='gui_node' type='global_planner_gui.py' name='global_planner_gui' output='screen'/>
+
+</launch>
